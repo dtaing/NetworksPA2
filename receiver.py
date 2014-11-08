@@ -66,7 +66,8 @@ def main():
     outfile.close()
 
 def unpackData(packedData):
-    s = struct.Struct("H H I I B B H H H 576s")
+    dataLen = len(packedData) - 20
+    s = struct.Struct("H H I I B B H H H " + str(dataLen) + "s")
     sourcePort, destPort, seqNum, ackNum, headerLength, flags, receiveWindow, checksum, urgent, data = s.unpack(packedData)
     return sourcePort, destPort, seqNum, ackNum, headerLength, flags, receiveWindow, checksum, urgent, data
 
